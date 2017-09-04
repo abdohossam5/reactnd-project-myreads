@@ -12,9 +12,20 @@ class BooksApp extends React.Component {
     
     searchBooks = (query)=> {
         BooksAPI.search(query,50).then((searchResults)=> {
+            // make sure to always return array in case search query is not from allowed search terms
             searchResults  = Array.isArray(searchResults) ? searchResults : [];
+            searchResults.forEach(b => this._handleBookImage(b));
             this.setState({searchResults})
         })
+    };
+
+    //helper functions
+    _handleBookImage = (book) =>{
+        if(!book.imageLinks || !book.imageLinks.thumbnail){
+            book.imageLinks = {
+                thumbnail: 'https://storage.googleapis.com/cloud-training/CP100/Bookshelf/bookplaceholder.jpg'
+            }
+        }
     };
 
     render() {
@@ -29,6 +40,7 @@ class BooksApp extends React.Component {
                         <div className="list-books-title">
                             <h1>MyReads</h1>
                         </div>
+
                         <div className="list-books-content">
                             <div>
                                 <div className="bookshelf">
