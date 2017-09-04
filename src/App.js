@@ -29,7 +29,7 @@ class BooksApp extends React.Component {
     updateBook = (book, newShelf)=> {
         let prevShelf = book.shelf;
 
-        BooksAPI.update(book, newShelf).then((res) => {
+        BooksAPI.update(book, newShelf).then(() => {
             this.setState((prevState) =>{
                 let newState = prevState;
                 if(prevShelf !== "none"){
@@ -47,6 +47,12 @@ class BooksApp extends React.Component {
                 });
                 return newState;
             });
+        })
+    };
+
+    clearSearchResults= ()=>{
+        this.setState({
+            searchResults: []
         })
     };
 
@@ -99,7 +105,12 @@ class BooksApp extends React.Component {
         return (
             <div className="app">
                 <Route path="/search" render={()=> (
-                    <SearchBooks onQueryChange={this.searchBooks} onBookUpdate={this.updateBook} searchResults={searchResults}/>
+                    <SearchBooks
+                        onQueryChange={this.searchBooks}
+                        onBookUpdate={this.updateBook}
+                        searchResults={searchResults}
+                        clearSearchResults={this.clearSearchResults}
+                    />
                 )} />
 
                 <Route exact path="/" render={() => (

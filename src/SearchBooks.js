@@ -8,7 +8,8 @@ class SearchBooks extends Component {
     static propTypes = {
         onQueryChange: PropTypes.func.isRequired,
         onBookUpdate: PropTypes.func.isRequired,
-        searchResults: PropTypes.array
+        searchResults: PropTypes.array,
+        clearSearchResults: PropTypes.func.isRequired
     };
 
     state = {
@@ -18,6 +19,10 @@ class SearchBooks extends Component {
     updateQuery(query) {
         this.setState({query});
         this.props.onQueryChange(query)
+    }
+
+    componentWillUnmount() {
+        this.props.clearSearchResults()
     }
 
     render() {
