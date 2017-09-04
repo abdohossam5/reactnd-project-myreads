@@ -7,6 +7,7 @@ class SearchBooks extends Component {
 
     static propTypes = {
         onQueryChange: PropTypes.func.isRequired,
+        onBookUpdate: PropTypes.func.isRequired,
         searchResults: PropTypes.array
     };
 
@@ -21,7 +22,7 @@ class SearchBooks extends Component {
 
     render() {
         let { query } = this.state;
-        let { searchResults } = this.props;
+        let { searchResults, onBookUpdate } = this.props;
         return (
             <div className="search-books">
                 <div className="search-books-bar">
@@ -36,7 +37,7 @@ class SearchBooks extends Component {
                     </div>
                 </div>
                 <div className="search-books-results">
-                    <BookList list={searchResults}/>
+                    <BookList list={searchResults} onBookUpdate={onBookUpdate}/>
                 </div>
             </div>
         )
